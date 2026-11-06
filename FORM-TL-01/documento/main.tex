@@ -1,0 +1,246 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{lmodern}
+\usepackage[a4paper,left=1.8cm,right=1.8cm,top=2.15cm,bottom=2.0cm]{geometry}
+\usepackage{microtype}
+\usepackage[table]{xcolor}
+\usepackage{array,longtable,booktabs,tabularx,multirow}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{ragged2e}
+\usepackage{needspace}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue!50!black,citecolor=blue!45!black,pdftitle={FORM-TL-01 - Taller de tipos de requisitos},pdfauthor={Estudiante de Ingenieria de Software}}
+
+\definecolor{verdeUTEQ}{HTML}{087647}
+\definecolor{verdeTenue}{HTML}{EDF6F0}
+\definecolor{grisTenue}{HTML}{F3F5F6}
+\definecolor{grisTexto}{HTML}{404850}
+\newcommand{\NombreEstudiante}{Chavarria Cuenca Tahiny Mel}
+\newcommand{\RepoTexto}{https://github.com/TahinyMel/ISR401-ChavarriaTahiny/tree/main/FORM-TL-01}
+\newcommand{\FechaRevision}{5 de noviembre de 2026}
+\newcommand{\Docente}{Gleiston Cicerón Guerrero Ulloa, PhD}
+\newcommand{\SiNoAplica}{\textit{No aplica (proceso)}}
+\newcommand{\Tipo}[1]{\textbf{#1}}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=*,nosep,topsep=2pt}
+\setlist[enumerate]{leftmargin=*,itemsep=3pt}
+\renewcommand{\arraystretch}{1.2}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{grisTexto}UTEQ · Ingeniería de Requerimientos · ISR-401}
+\fancyhead[R]{\footnotesize\color{grisTexto}FORM-TL-01}
+\fancyfoot[L]{\footnotesize\color{grisTexto}Taller de tipos de requisitos}
+\fancyfoot[R]{\footnotesize\color{grisTexto}\thepage\ / \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+\newcommand{\encabezadoTabla}{\rowcolor{verdeUTEQ}\color{white}}
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries\color{verdeUTEQ} UNIVERSIDAD TÉCNICA ESTATAL DE QUEVEDO}\\[4pt]
+{\small Facultad de Ciencias de la Computación · Carrera de Software}\\[13pt]
+{\large\bfseries Ingeniería de Requerimientos (ISR-401)}\\[5pt]
+{\LARGE\bfseries Taller de tipos de requisitos}\\[4pt]
+{\large FORM-TL-01}\\[9pt]
+{\small\itshape Estudio de caso: Plataforma de gestión de citas médicas\\
+Policlínico Ribera del Quevedo (organización ficticia)}
+\end{center}
+\vspace{0.3cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.4cm}X}
+Estudiante: & \NombreEstudiante\\
+Docente: & \Docente\\
+Nivel y paralelo: & Cuarto nivel, paralelo B\\
+Modalidad: & Individual\\
+Fecha de revisión: & \FechaRevision\\
+Fecha límite de la guía: & 31 de octubre de 2026, 23:59\\
+Repositorio: & \RepoTexto\\
+\end{tabularx}
+\vspace{0.25cm}
+\colorbox{verdeTenue}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\textbf{Estado del documento: borrador técnico para revisión personal.} La sección de discrepancias requiere una comparación real con un compañero; no se ha simulado esa actividad. Los umbrales de calidad son propuestas de especificación, no compromisos ya aprobados por el policlínico.}}
+
+\section{Objetivo y delimitación del caso}
+Clasificar los 20 enunciados del caso en tres dimensiones: (i) funcional, calidad o restricción; (ii) producto o proceso; y (iii) sistema o software. Para los enunciados de calidad se identifica la característica y subcaracterística pertinente del modelo ISO/IEC 25010:2023. Se transforman cinco expresiones vagas en requisitos verificables con métrica, unidad y umbral, y se deja preparada la comparación con un compañero, como solicita la guía \cite{guia2026,pohl2025,iso29148,iso25010}.
+
+El caso describe un policlínico ficticio con \textbf{24 médicos}, \textbf{9 especialidades}, \textbf{18 consultorios}, aproximadamente \textbf{12\,000 pacientes} y \textbf{450 citas diarias}. Cerca del \textbf{35\,\%} de sus pacientes supera los 60 años. El servicio opera de \textbf{lunes a sábado, de 07:00 a 19:00}, y el pico de usuarios simultáneos esperado es de unos \textbf{300}, especialmente los lunes a las 07:00. El sistema de facturación ya existe y proporciona servicios web; no se reemplazará. Tampoco forman parte del alcance la historia clínica digital, el laboratorio, la farmacia ni la telemedicina \cite{guia2026}.
+
+\section{Criterios aplicados en la clasificación}
+\begin{itemize}
+  \item \textbf{Funcional:} prescribe una capacidad o comportamiento observable del sistema ante un evento o usuario. Una regla de negocio automatizada también se considera funcional.
+  \item \textbf{Calidad:} especifica una propiedad medible del producto, como tiempo de respuesta, confidencialidad, inclusividad, disponibilidad, interoperabilidad o recuperación. Se usa el modelo de \textbf{nueve características} de ISO/IEC 25010:2023 \cite{iso25010}.
+  \item \textbf{Restricción:} delimita alternativas de diseño, plataformas, normativa o condiciones de ejecución del proyecto.
+  \item \textbf{Producto / proceso:} ``producto'' describe lo que ha de presentar o cumplir la solución entregada; ``proceso'' regula cómo se trabaja, valida o entrega el proyecto.
+  \item \textbf{Sistema / software:} ``sistema'' incluye la solución sociotécnica completa, equipamiento, infraestructura e interfaces externas; ``software'' se refiere principalmente a una aplicación o comportamiento programado. En requisitos \emph{puramente de proceso} se marca \textit{no aplica}, ya que no definen el nivel de la solución; se indica el ámbito del proceso en la justificación. Esta es una decisión de clasificación explícita, susceptible de discusión en clase.
+\end{itemize}
+
+\section{Los 20 enunciados originales}
+Los siguientes enunciados proceden del apartado 1.7 del caso (anexo de la guía); se preserva su sentido literal y su código de trazabilidad \cite{guia2026}.
+{\small
+\begin{longtable}{@{}P{1.4cm}P{15.55cm}@{}}
+\caption{Enunciados E01--E20 del caso}\label{tab:enunciados}\\
+\toprule \rowcolor{verdeUTEQ}\color{white}\textbf{Código} & \color{white}\textbf{Enunciado}\\\midrule\endfirsthead
+\multicolumn{2}{l}{\footnotesize\itshape Tabla \thetable\ (continuación)}\\
+\toprule \rowcolor{verdeUTEQ}\color{white}\textbf{Código} & \color{white}\textbf{Enunciado}\\\midrule\endhead
+\bottomrule\endfoot
+E01 & El paciente podrá reservar una cita eligiendo especialidad, médico, fecha y hora entre los horarios disponibles.\\
+E02 & La plataforma enviará al paciente un recordatorio por mensaje de texto 24 horas antes de su cita.\\
+E03 & La aplicación debe ser rápida.\\
+E04 & El recepcionista podrá registrar la llegada del paciente que se acerca a la ventanilla.\\
+E05 & La plataforma se desarrollará en Java 21 con base de datos PostgreSQL, tecnologías que domina el área de TI.\\
+E06 & El médico podrá consultar la lista de pacientes del día y marcar cada consulta como atendida.\\
+E07 & Los datos de salud de los pacientes deben estar seguros.\\
+E08 & La aplicación móvil debe funcionar en teléfonos con Android 10 o superior.\\
+E09 & Una cita cancelada con menos de cuatro horas de anticipación se registrará como inasistencia.\\
+E10 & La plataforma debe ser fácil de usar para los pacientes adultos mayores.\\
+E11 & El proyecto debe entregarse en un plazo máximo de seis meses.\\
+E12 & La sesión de un usuario se cerrará automáticamente tras 10 minutos sin actividad.\\
+E13 & El quiosco de la sala de espera leerá el número de cédula ingresado en su pantalla táctil e imprimirá un ticket con el número de turno.\\
+E14 & La plataforma debe estar siempre disponible.\\
+E15 & El director médico podrá generar un reporte mensual de inasistencias por especialidad.\\
+E16 & Cada incremento se validará con el director médico al final de cada iteración de dos semanas.\\
+E17 & El tratamiento de los datos personales de los pacientes debe cumplir la Ley Orgánica de Protección de Datos Personales del Ecuador.\\
+E18 & La plataforma debe integrarse sin problemas con el sistema de facturación actual.\\
+E19 & Si el servidor principal falla, la plataforma debe restablecer el servicio en menos de 30 minutos sin perder ninguna cita confirmada.\\
+E20 & Todo cambio en el código fuente será revisado por otro integrante del equipo antes de integrarse a la rama principal.\\
+\end{longtable}
+}
+
+\section{Clasificación en tres dimensiones y justificación}
+En la columna ISO se identifica la característica y la subcaracterística \textbf{solo en los requisitos de calidad}; un guion significa que no corresponde asignar esta taxonomía como clasificación principal. En E07 se seleccionan dos subcaracterísticas porque ``seguros'' abarca confidencialidad e integridad. E19 ya contiene una métrica de recuperación, por lo que se clasifica como calidad, aunque no está entre los cinco enunciados vagos que deben reescribirse.
+
+{\fontsize{8.6}{10.3}\selectfont
+\setlength\tabcolsep{2.6pt}
+\begin{longtable}{@{}P{0.79cm}P{1.95cm}P{1.48cm}P{1.58cm}P{4.05cm}P{6.15cm}@{}}
+\caption{Clasificación argumentada de los 20 enunciados}\label{tab:clasificacion}\\
+\toprule \rowcolor{verdeUTEQ}
+\color{white}\textbf{ID} & \color{white}\textbf{Naturaleza} & \color{white}\textbf{P/P} & \color{white}\textbf{Nivel} & \color{white}\textbf{ISO/IEC 25010:2023} & \color{white}\textbf{Justificación}\\\midrule\endfirsthead
+\multicolumn{6}{l}{\footnotesize\itshape Tabla \thetable\ (continuación)}\\
+\toprule \rowcolor{verdeUTEQ}
+\color{white}\textbf{ID} & \color{white}\textbf{Naturaleza} & \color{white}\textbf{P/P} & \color{white}\textbf{Nivel} & \color{white}\textbf{ISO/IEC 25010:2023} & \color{white}\textbf{Justificación}\\\midrule\endhead
+\bottomrule\endfoot
+E01 & Funcional & Producto & Software & --- & Permite realizar la reserva y determina los campos de selección que procesa la aplicación.\\
+E02 & Funcional & Producto & Sistema & --- & Ordena emitir SMS a través de un canal de comunicación externo, 24 h antes de la cita.\\
+\rowcolor{grisTenue} E03 & Calidad & Producto & Software & Eficiencia de desempeño / comportamiento temporal & ``Rápida'' alude al tiempo de respuesta de las operaciones digitales, sin dar un valor objetivo.\\
+E04 & Funcional & Producto & Software & --- & Define la función para registrar en el sistema la presencia del paciente.\\
+E05 & Restricción & Producto & Software & --- & Fija Java 21 y PostgreSQL, limitando las tecnologías de implementación del producto.\\
+E06 & Funcional & Producto & Software & --- & Establece dos acciones del médico: consultar su agenda y registrar una atención.\\
+\rowcolor{grisTenue} E07 & Calidad & Producto & Sistema & Seguridad / confidencialidad e integridad & La protección de datos sanitarios alcanza aplicaciones, almacenamiento y accesos del conjunto.\\
+E08 & Restricción & Producto & Software & --- & Impone una plataforma de ejecución mínima: Android 10 o superior.\\
+E09 & Funcional & Producto & Software & --- & Codifica una regla de negocio que cambia el estado de una cita según el plazo de cancelación.\\
+\rowcolor{grisTenue} E10 & Calidad & Producto & Software & Capacidad de interacción / inclusividad y facilidad de aprendizaje & Exige que las personas mayores puedan interactuar y aprender el flujo de reserva.\\
+E11 & Restricción & Proceso & No aplica & --- & Fija la duración máxima del proyecto, no una propiedad del sistema terminado.\\
+E12 & Funcional & Producto & Software & --- & Especifica una acción automática comprobable: cerrar la sesión a los 10 min de inactividad.\\
+E13 & Funcional & Producto & Sistema & --- & Combina software, pantalla táctil e impresora térmica para entregar un turno físico.\\
+\rowcolor{grisTenue} E14 & Calidad & Producto & Sistema & Fiabilidad / disponibilidad & ``Siempre disponible'' expresa continuidad del servicio, sin porcentaje ni período definidos.\\
+E15 & Funcional & Producto & Software & --- & Define un reporte que puede generar el director, filtrado por mes y especialidad.\\
+E16 & Restricción & Proceso & No aplica & --- & Establece validación y periodicidad de iteraciones durante el desarrollo.\\
+E17 & Restricción & Producto & Sistema & --- & Impone conformidad legal al tratamiento de información personal en toda la solución.\\
+\rowcolor{grisTenue} E18 & Calidad & Producto & Sistema & Compatibilidad / interoperabilidad & Se refiere al intercambio correcto de cobros con otro sistema mediante servicios web.\\
+E19 & Calidad & Producto & Sistema & Fiabilidad / recuperabilidad & Define recuperación ante falla de servidor: menos de 30 min y cero citas confirmadas perdidas.\\
+E20 & Restricción & Proceso & No aplica & --- & Exige revisión humana de cambios de código antes de integrarlos; regula el proceso de software.\\
+\end{longtable}
+}
+\noindent\textbf{Aclaraciones relevantes.} E05 y E08 son restricciones de tecnología/entorno, aunque inciden en atributos de calidad. E12 es funcional porque prescribe el comportamiento exacto de expiración de sesión; la seguridad es su motivación, no su clasificación principal. E17 es una restricción normativa, no una lista implícita de controles técnicos. Para E11, E16 y E20, el nivel sistema/software se deja como ``no aplica'' al tratarse de procesos del proyecto; en E20 el proceso específico es el desarrollo de software. Estas decisiones deberán contrastarse con el compañero.
+
+\section{Reformulación cuantificada de los cinco enunciados vagos}
+Los umbrales de esta sección son \textbf{propuestas razonadas para el ejercicio}, basadas en los 300 usuarios concurrentes, el horario de atención, la proporción de adultos mayores, la sensibilidad de la información y la integración existente. \textbf{No figuran cuantificados en el caso original ni se ha obtenido aprobación del director médico.} Antes de convertirlos en líneas base contractuales deben ser validados con los interesados \cite{guia2026,iso29148}.
+
+\subsection*{RC-03 (origen E03): rendimiento de la reserva}
+\textbf{Redacción verificable.} Con 300 sesiones de usuario simultáneas en el ambiente de prueba representativo y consultas válidas al catálogo de médicos y horarios, \textbf{al menos el 95\,\%} de las solicitudes de disponibilidad deberán mostrar una respuesta completa en \textbf{3 segundos o menos}, medidos desde el envío de la solicitud hasta su presentación en el cliente.
+\begin{itemize}
+\item \textbf{Característica/subcaracterística:} eficiencia de desempeño / comportamiento temporal.
+\item \textbf{Métrica, unidad y umbral:} percentil 95 (P95) del tiempo de respuesta; segundos; \(\mathrm{P95}\leq 3\,\mathrm{s}\).
+\item \textbf{Verificación propuesta:} ejecutar al menos 1\,000 solicitudes registradas durante una prueba de carga con 300 sesiones activas; calcular el P95 sobre tiempos válidos. Incluir un dispositivo Android de gama media/baja en la validación de experiencia móvil.
+\end{itemize}
+
+\subsection*{RC-07 (origen E07): protección de información de salud}
+\textbf{Redacción verificable.} El \textbf{100\,\%} de las comunicaciones que transfieran datos de salud entre clientes y servicios deberá utilizar \textbf{TLS 1.2 o superior}; el \textbf{100\,\%} de los registros que contengan datos de salud persistidos deberá encontrarse cifrado en reposo. En un conjunto de \textbf{100 pruebas negativas de autorización} previamente definidas, el número de lecturas o modificaciones no autorizadas que tengan éxito deberá ser \textbf{cero}.
+\begin{itemize}
+\item \textbf{Característica/subcaracterística:} seguridad / confidencialidad e integridad.
+\item \textbf{Métrica, unidad y umbral:} cobertura de cifrado en tránsito y reposo, en porcentaje (100\,\% cada una); accesos o modificaciones indebidos exitosos, en eventos (\(0/100\)).
+\item \textbf{Verificación propuesta:} revisar configuraciones de transporte y almacenamiento, capturas técnicas de conexión sin incluir datos personales reales, y probar la matriz de permisos con identidades sintéticas. Las medidas no sustituyen una evaluación jurídica completa de la LOPDP \cite{lopdp2021}.
+\end{itemize}
+
+\subsection*{RC-10 (origen E10): interacción de pacientes mayores}
+\textbf{Redacción verificable.} En una prueba de usabilidad con \textbf{20 participantes de 60 años o más}, al menos \textbf{18 de 20 (90\,\%)} deberán conseguir reservar una cita disponible, desde la pantalla inicial hasta la confirmación, \textbf{sin ayuda} y en un máximo de \textbf{5 minutos por persona}.
+\begin{itemize}
+\item \textbf{Característica/subcaracterística:} capacidad de interacción / inclusividad y facilidad de aprendizaje.
+\item \textbf{Métrica, unidad y umbral:} tasa de éxito autónomo, porcentaje (\(\geq90\)\,\%); tiempo por tarea, minutos (\(\leq5\)); muestra objetivo, personas (\(n=20\)).
+\item \textbf{Verificación propuesta:} definir una misma tarea y criterio de éxito, cronometrar de forma anónima, registrar errores y calcular éxitos válidos. \emph{Esta prueba todavía no se ha realizado y no se alegan resultados.}
+\end{itemize}
+
+\subsection*{RC-14 (origen E14): disponibilidad operativa}
+\textbf{Redacción verificable.} La plataforma completa de reservas deberá alcanzar una \textbf{disponibilidad mensual de al menos 99,9\,\%} durante el horario del policlínico (\textbf{lunes a sábado, 07:00--19:00}), medida mediante comprobaciones automáticas cada \textbf{60 segundos}. Una comprobación será exitosa si el servicio permite consultar disponibilidad en \textbf{5 segundos o menos}.
+\begin{itemize}
+\item \textbf{Característica/subcaracterística:} fiabilidad / disponibilidad.
+\item \textbf{Métrica, unidad y umbral:} porcentaje de intervalos operativos exitosos por mes (\(\geq99{,}9\)\,\%); intervalo de medición, segundos (60).
+\item \textbf{Verificación propuesta:} contar las comprobaciones exitosas y totales del horario definido: \(A=100\times\tfrac{N_{\mathrm{exitosas}}}{N_{\mathrm{totales}}}\). No excluir fallas ni mantenimiento del denominador salvo acuerdo documentado.
+\end{itemize}
+
+\subsection*{RC-18 (origen E18): interoperabilidad con facturación}
+\textbf{Redacción verificable.} En una prueba de integración con la interfaz web \textbf{documentada} del sistema de facturación existente, la plataforma deberá registrar correctamente al menos \textbf{198 de 200 solicitudes válidas de cobro (99\,\%)} y no generar \textbf{ningún cobro duplicado} cuando se repita una solicitud con el mismo identificador de operación.
+\begin{itemize}
+\item \textbf{Característica/subcaracterística:} compatibilidad / interoperabilidad.
+\item \textbf{Métrica, unidad y umbral:} transacciones válidas registradas con confirmación, porcentaje (\(\geq99\)\,\%, sobre 200 intentos); duplicados, cantidad (0).
+\item \textbf{Verificación propuesta:} usar la interfaz de pruebas pactada con el proveedor, validar el identificador de cobro y contrastar solicitudes con los registros del sistema emisor. Confirmar previamente que el servicio permite deduplicación o acordar cómo la implementará la nueva plataforma.
+\end{itemize}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}P{1.43cm}P{3.0cm}P{4.93cm}X@{}}
+\toprule\rowcolor{verdeUTEQ}
+\color{white}\textbf{Origen} & \color{white}\textbf{Característica} & \color{white}\textbf{Métrica y unidad} & \color{white}\textbf{Umbral}\\\midrule
+E03 & Desempeño temporal & P95 del tiempo de respuesta (s) & \(\leq 3\,\mathrm{s}\), con 300 sesiones\\
+E07 & Seguridad & Cobertura de cifrado (\%); fallas de autorización (eventos) & 100\% en ambos medios; 0 de 100\\
+E10 & Capacidad de interacción & Éxitos autónomos (\%); duración (min) & \(\geq90\)\,\% y \(\leq5\) min\\
+E14 & Disponibilidad & Comprobaciones exitosas del mes (\%) & \(\geq99{,}9\)\,\%\\
+E18 & Interoperabilidad & Cobros confirmados (\%); duplicados (n) & \(\geq99\)\,\%; 0 duplicados\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Comparación con un compañero y resolución de discrepancias}
+\textbf{Actividad práctica pendiente:} la guía solicita discutir las clasificaciones con un compañero, identificar discrepancias y registrar su resolución. No se pueden atribuir opiniones, acuerdos o fechas a personas con las que no se haya conversado. Completar esta sección \textbf{después} de la discusión real, incluso si el resultado es que no hubo discrepancias.
+
+\textbf{Compañero/a:} [NOMBRE O INICIALES CON CONSENTIMIENTO] \hfill \textbf{Fecha real:} [DD/MM/AAAA]
+
+{\small
+\begin{longtable}{@{}P{0.8cm}P{2.9cm}P{2.9cm}P{2.5cm}P{6.0cm}@{}}
+\toprule \rowcolor{verdeUTEQ}
+\color{white}\textbf{ID} & \color{white}\textbf{Mi criterio} & \color{white}\textbf{Criterio del compañero} & \color{white}\textbf{Discrepancia} & \color{white}\textbf{Acuerdo final y argumento}\\\midrule\endfirsthead
+\toprule \rowcolor{verdeUTEQ}\color{white}\textbf{ID} & \color{white}\textbf{Mi criterio} & \color{white}\textbf{Criterio del compañero} & \color{white}\textbf{Discrepancia} & \color{white}\textbf{Acuerdo final y argumento}\\\midrule\endhead
+\bottomrule\endfoot
+[\ ] & [Completar] & [Completar] & [Completar] & [Sustentar con las definiciones empleadas]\\[1.0cm]
+[\ ] & [Completar] & [Completar] & [Completar] & [Sustentar con las definiciones empleadas]\\[1.0cm]
+[\ ] & [Completar] & [Completar] & [Completar] & [Sustentar con las definiciones empleadas]\\[1.0cm]
+\end{longtable}
+}
+\textit{Si no se encuentran diferencias, sustituir la tabla por un registro verídico que indique quién participó, cuándo se realizó el contraste, cuáles fueron los códigos revisados y que no surgieron discrepancias. No inventar entrevistas, reuniones ni acuerdos.}
+
+\section{Revisión de cumplimiento y pendientes}
+\begin{tabularx}{\textwidth}{@{}P{1.0cm}X P{3.9cm}@{}}
+\toprule\rowcolor{verdeUTEQ}\color{white}\textbf{N.\!\textordmasculine} & \color{white}\textbf{Indicador de la lista de cotejo} & \color{white}\textbf{Estado de este borrador}\\\midrule
+1 & 20 enunciados clasificados en las tres dimensiones y justificados & Redactado; revisar criterio\\
+2 & Características y subcaracterísticas ISO/IEC 25010:2023 correctas & Redactado; cotejar taxonomía\\
+3 & Cinco enunciados vagos reformulados con métricas, unidades y umbrales & Redactado; validar umbrales\\
+4 & Discrepancias con compañero y resolución razonada & Pendiente de actividad real\\
+5 & Documento propio, compilado, PDF y repositorio personal & Compilación revisable; GitHub pendiente\\
+\bottomrule
+\end{tabularx}
+
+La publicación deberá realizarse en \texttt{ISR401-ApellidoNombre/FORM-TL-01/}, con los fuentes, PDF y \texttt{README.md} que expliquen la reproducción. El PDF único del SGA tiene una función distinta y debe contener \emph{solo} datos informativos y URL en una página. La fecha límite fijada por la guía fue el \textbf{31 de octubre de 2026 a las 23:59}; este borrador no acredita entrega dentro de ese plazo \cite{guia2026}.
+
+\section{Declaración transparente de asistencia con IA}
+Se utilizó \textbf{ChatGPT (OpenAI, GPT-6)} como apoyo sustantivo para estructurar este \textbf{borrador}, proponer una primera clasificación, formular métricas verificables y preparar el código \LaTeX{}. La identidad del caso y sus 20 enunciados proceden de la guía académica. Se contrastaron las denominaciones de calidad con la edición ISO/IEC 25010:2023 y los datos bibliográficos con las páginas oficiales de las fuentes; asimismo, se preparó el documento para compilación con \texttt{pdflatex} y \texttt{bibtex}. \textbf{La revisión de contenido, la aprobación de umbrales, la discusión con el compañero y la autoría de la versión presentada corresponden al estudiante.} No se presentan como ejecutadas pruebas de carga, usabilidad o integración, ni una discusión entre compañeros \cite{acm2018}.
+
+\bibliographystyle{IEEEtran}
+\bibliography{referencias}
+\end{document}
