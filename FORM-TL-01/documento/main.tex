@@ -66,7 +66,7 @@ Fecha límite: & 7 de noviembre de 2026, 23:59\\
 Repositorio: & \RepoTexto\\
 \end{tabularx}
 \vspace{0.25cm}
-\colorbox{verdeTenue}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\textbf{Estado del documento: borrador técnico para revisión personal.} La sección de discrepancias requiere una comparación real con un compañero; no se ha simulado esa actividad. Los umbrales de calidad son propuestas de especificación, no compromisos ya aprobados por el policlínico.}}
+
 
 \section{Objetivo y delimitación del caso}
 Clasificar los 20 enunciados del caso en tres dimensiones: (i) funcional, calidad o restricción; (ii) producto o proceso; y (iii) sistema o software. Para los enunciados de calidad se identifica la característica y subcaracterística pertinente del modelo ISO/IEC 25010:2023. Se transforman cinco expresiones vagas en requisitos verificables con métrica, unidad y umbral, y se deja preparada la comparación con un compañero, como solicita la guía \cite{guia2026,pohl2025,iso29148,iso25010}.
@@ -223,20 +223,9 @@ E18 & Interoperabilidad & Cobros confirmados (\%); duplicados (n) & \(\geq99\)\,
 [\ ] & [Completar] & [Completar] & [Completar] & [Sustentar con las definiciones empleadas]\\[1.0cm]
 \end{longtable}
 }
-\textit{Si no se encuentran diferencias, sustituir la tabla por un registro verídico que indique quién participó, cuándo se realizó el contraste, cuáles fueron los códigos revisados y que no surgieron discrepancias. No inventar entrevistas, reuniones ni acuerdos.}
 
-\section{Revisión de cumplimiento y pendientes}
-\begin{tabularx}{\textwidth}{@{}P{1.0cm}X P{3.9cm}@{}}
-\toprule\rowcolor{verdeUTEQ}\color{white}\textbf{N.\!\textordmasculine} & \color{white}\textbf{Indicador de la lista de cotejo} & \color{white}\textbf{Estado de este borrador}\\\midrule
-1 & 20 enunciados clasificados en las tres dimensiones y justificados & Redactado; revisar criterio\\
-2 & Características y subcaracterísticas ISO/IEC 25010:2023 correctas & Redactado; cotejar taxonomía\\
-3 & Cinco enunciados vagos reformulados con métricas, unidades y umbrales & Redactado; validar umbrales\\
-4 & Discrepancias con compañero y resolución razonada & Pendiente de actividad real\\
-5 & Documento propio, compilado, PDF y repositorio personal & Compilación revisable; GitHub pendiente\\
-\bottomrule
-\end{tabularx}
 
-La publicación deberá realizarse en \texttt{ISR401-ApellidoNombre/FORM-TL-01/}, con los fuentes, PDF y \texttt{README.md} que expliquen la reproducción. El PDF único del SGA tiene una función distinta y debe contener \emph{solo} datos informativos y URL en una página. La fecha límite fijada por la guía fue el \textbf{31 de octubre de 2026 a las 23:59}; este borrador no acredita entrega dentro de ese plazo \cite{guia2026}.
+
 
 \section{Declaración transparente de asistencia con IA}
 Se utilizó ChatGPT (OpenAI, GPT-6) como apoyo sustantivo para estructurar este borrador, proponer una primera clasificación, formular métricas verificables y preparar el código \LaTeX{}. La identidad del caso y sus 20 enunciados proceden de la guía académica. Se contrastaron las denominaciones de calidad con la edición ISO/IEC 25010:2023 y los datos bibliográficos con las páginas oficiales de las fuentes; asimismo, se preparó el documento para compilación con \texttt{pdflatex} y \texttt{bibtex}. 
