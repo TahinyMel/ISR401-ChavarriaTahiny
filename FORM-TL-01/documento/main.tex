@@ -115,7 +115,7 @@ E20 & Todo cambio en el código fuente será revisado por otro integrante del eq
 }
 
 \section{Clasificación en tres dimensiones y justificación}
-En la columna ISO se identifica la característica y la subcaracterística \textbf{solo en los requisitos de calidad}; un guion significa que no corresponde asignar esta taxonomía como clasificación principal. En E07 se seleccionan dos subcaracterísticas porque ``seguros'' abarca confidencialidad e integridad. E19 ya contiene una métrica de recuperación, por lo que se clasifica como calidad, aunque no está entre los cinco enunciados vagos que deben reescribirse.
+En la columna ISO se identifica la característica y la subcaracterística solo en los requisitos de calidad; un guion significa que no corresponde asignar esta taxonomía como clasificación principal. En E07 se seleccionan dos subcaracterísticas porque ``seguros'' abarca confidencialidad e integridad. E19 ya contiene una métrica de recuperación, por lo que se clasifica como calidad, aunque no está entre los cinco enunciados vagos que deben reescribirse.
 
 {\fontsize{8.6}{10.3}\selectfont
 \setlength\tabcolsep{2.6pt}
@@ -152,10 +152,10 @@ E20 & Restricción & Proceso & No aplica & --- & Exige revisión humana de cambi
 \noindent\textbf{Aclaraciones relevantes.} E05 y E08 son restricciones de tecnología/entorno, aunque inciden en atributos de calidad. E12 es funcional porque prescribe el comportamiento exacto de expiración de sesión; la seguridad es su motivación, no su clasificación principal. E17 es una restricción normativa, no una lista implícita de controles técnicos. Para E11, E16 y E20, el nivel sistema/software se deja como ``no aplica'' al tratarse de procesos del proyecto; en E20 el proceso específico es el desarrollo de software. Estas decisiones deberán contrastarse con el compañero.
 
 \section{Reformulación cuantificada de los cinco enunciados vagos}
-Los umbrales de esta sección son \textbf{propuestas razonadas para el ejercicio}, basadas en los 300 usuarios concurrentes, el horario de atención, la proporción de adultos mayores, la sensibilidad de la información y la integración existente. \textbf{No figuran cuantificados en el caso original ni se ha obtenido aprobación del director médico.} Antes de convertirlos en líneas base contractuales deben ser validados con los interesados \cite{guia2026,iso29148}.
+Los umbrales de esta sección son propuestas razonadas para el ejercicio, basadas en los 300 usuarios concurrentes, el horario de atención, la proporción de adultos mayores, la sensibilidad de la información y la integración existente. No figuran cuantificados en el caso original ni se ha obtenido aprobación del director médico. Antes de convertirlos en líneas base contractuales deben ser validados con los interesados \cite{guia2026,iso29148}.
 
 \subsection*{RC-03 (origen E03): rendimiento de la reserva}
-\textbf{Redacción verificable.} Con 300 sesiones de usuario simultáneas en el ambiente de prueba representativo y consultas válidas al catálogo de médicos y horarios, \textbf{al menos el 95\,\%} de las solicitudes de disponibilidad deberán mostrar una respuesta completa en \textbf{3 segundos o menos}, medidos desde el envío de la solicitud hasta su presentación en el cliente.
+\textbf{Redacción verificable.} Con 300 sesiones de usuario simultáneas en el ambiente de prueba representativo y consultas válidas al catálogo de médicos y horarios, al menos el 95\,\% de las solicitudes de disponibilidad deberán mostrar una respuesta completa en 3 segundos o menos, medidos desde el envío de la solicitud hasta su presentación en el cliente.
 \begin{itemize}
 \item \textbf{Característica/subcaracterística:} eficiencia de desempeño / comportamiento temporal.
 \item \textbf{Métrica, unidad y umbral:} percentil 95 (P95) del tiempo de respuesta; segundos; \(\mathrm{P95}\leq 3\,\mathrm{s}\).
@@ -163,7 +163,7 @@ Los umbrales de esta sección son \textbf{propuestas razonadas para el ejercicio
 \end{itemize}
 
 \subsection*{RC-07 (origen E07): protección de información de salud}
-\textbf{Redacción verificable.} El \textbf{100\,\%} de las comunicaciones que transfieran datos de salud entre clientes y servicios deberá utilizar \textbf{TLS 1.2 o superior}; el \textbf{100\,\%} de los registros que contengan datos de salud persistidos deberá encontrarse cifrado en reposo. En un conjunto de \textbf{100 pruebas negativas de autorización} previamente definidas, el número de lecturas o modificaciones no autorizadas que tengan éxito deberá ser \textbf{cero}.
+\textbf{Redacción verificable.} El 100\,\% de las comunicaciones que transfieran datos de salud entre clientes y servicios deberá utilizar TLS 1.2 o superior; el 100\,\% de los registros que contengan datos de salud persistidos deberá encontrarse cifrado en reposo. En un conjunto de 100 pruebas negativas de autorización previamente definidas, el número de lecturas o modificaciones no autorizadas que tengan éxito deberá ser cero.
 \begin{itemize}
 \item \textbf{Característica/subcaracterística:} seguridad / confidencialidad e integridad.
 \item \textbf{Métrica, unidad y umbral:} cobertura de cifrado en tránsito y reposo, en porcentaje (100\,\% cada una); accesos o modificaciones indebidos exitosos, en eventos (\(0/100\)).
@@ -171,7 +171,7 @@ Los umbrales de esta sección son \textbf{propuestas razonadas para el ejercicio
 \end{itemize}
 
 \subsection*{RC-10 (origen E10): interacción de pacientes mayores}
-\textbf{Redacción verificable.} En una prueba de usabilidad con \textbf{20 participantes de 60 años o más}, al menos \textbf{18 de 20 (90\,\%)} deberán conseguir reservar una cita disponible, desde la pantalla inicial hasta la confirmación, \textbf{sin ayuda} y en un máximo de \textbf{5 minutos por persona}.
+\textbf{Redacción verificable.} En una prueba de usabilidad con 20 participantes de 60 años o más, al menos 18 de 20 (90\,\%) deberán conseguir reservar una cita disponible, desde la pantalla inicial hasta la confirmación, sin ayuda y en un máximo de 5 minutos por persona.
 \begin{itemize}
 \item \textbf{Característica/subcaracterística:} capacidad de interacción / inclusividad y facilidad de aprendizaje.
 \item \textbf{Métrica, unidad y umbral:} tasa de éxito autónomo, porcentaje (\(\geq90\)\,\%); tiempo por tarea, minutos (\(\leq5\)); muestra objetivo, personas (\(n=20\)).
@@ -179,7 +179,7 @@ Los umbrales de esta sección son \textbf{propuestas razonadas para el ejercicio
 \end{itemize}
 
 \subsection*{RC-14 (origen E14): disponibilidad operativa}
-\textbf{Redacción verificable.} La plataforma completa de reservas deberá alcanzar una \textbf{disponibilidad mensual de al menos 99,9\,\%} durante el horario del policlínico (\textbf{lunes a sábado, 07:00--19:00}), medida mediante comprobaciones automáticas cada \textbf{60 segundos}. Una comprobación será exitosa si el servicio permite consultar disponibilidad en \textbf{5 segundos o menos}.
+\textbf{Redacción verificable.} La plataforma completa de reservas deberá alcanzar una disponibilidad mensual de al menos 99,9\,\% durante el horario del policlínico (lunes a sábado, 07:00--19:00), medida mediante comprobaciones automáticas cada 60 segundos. Una comprobación será exitosa si el servicio permite consultar disponibilidad en 5 segundos o menos.
 \begin{itemize}
 \item \textbf{Característica/subcaracterística:} fiabilidad / disponibilidad.
 \item \textbf{Métrica, unidad y umbral:} porcentaje de intervalos operativos exitosos por mes (\(\geq99{,}9\)\,\%); intervalo de medición, segundos (60).
@@ -187,7 +187,7 @@ Los umbrales de esta sección son \textbf{propuestas razonadas para el ejercicio
 \end{itemize}
 
 \subsection*{RC-18 (origen E18): interoperabilidad con facturación}
-\textbf{Redacción verificable.} En una prueba de integración con la interfaz web \textbf{documentada} del sistema de facturación existente, la plataforma deberá registrar correctamente al menos \textbf{198 de 200 solicitudes válidas de cobro (99\,\%)} y no generar \textbf{ningún cobro duplicado} cuando se repita una solicitud con el mismo identificador de operación.
+\textbf{Redacción verificable.} En una prueba de integración con la interfaz web documentada del sistema de facturación existente, la plataforma deberá registrar correctamente al menos 198 de 200 solicitudes válidas de cobro (99\,\%) y no generar ningún cobro duplicado cuando se repita una solicitud con el mismo identificador de operación.
 \begin{itemize}
 \item \textbf{Característica/subcaracterística:} compatibilidad / interoperabilidad.
 \item \textbf{Métrica, unidad y umbral:} transacciones válidas registradas con confirmación, porcentaje (\(\geq99\)\,\%, sobre 200 intentos); duplicados, cantidad (0).
@@ -239,7 +239,7 @@ E18 & Interoperabilidad & Cobros confirmados (\%); duplicados (n) & \(\geq99\)\,
 La publicación deberá realizarse en \texttt{ISR401-ApellidoNombre/FORM-TL-01/}, con los fuentes, PDF y \texttt{README.md} que expliquen la reproducción. El PDF único del SGA tiene una función distinta y debe contener \emph{solo} datos informativos y URL en una página. La fecha límite fijada por la guía fue el \textbf{31 de octubre de 2026 a las 23:59}; este borrador no acredita entrega dentro de ese plazo \cite{guia2026}.
 
 \section{Declaración transparente de asistencia con IA}
-Se utilizó \textbf{ChatGPT (OpenAI, GPT-6)} como apoyo sustantivo para estructurar este \textbf{borrador}, proponer una primera clasificación, formular métricas verificables y preparar el código \LaTeX{}. La identidad del caso y sus 20 enunciados proceden de la guía académica. Se contrastaron las denominaciones de calidad con la edición ISO/IEC 25010:2023 y los datos bibliográficos con las páginas oficiales de las fuentes; asimismo, se preparó el documento para compilación con \texttt{pdflatex} y \texttt{bibtex}. \textbf{La revisión de contenido, la aprobación de umbrales, la discusión con el compañero y la autoría de la versión presentada corresponden al estudiante.} No se presentan como ejecutadas pruebas de carga, usabilidad o integración, ni una discusión entre compañeros \cite{acm2018}.
+Se utilizó ChatGPT (OpenAI, GPT-6) como apoyo sustantivo para estructurar este borrador, proponer una primera clasificación, formular métricas verificables y preparar el código \LaTeX{}. La identidad del caso y sus 20 enunciados proceden de la guía académica. Se contrastaron las denominaciones de calidad con la edición ISO/IEC 25010:2023 y los datos bibliográficos con las páginas oficiales de las fuentes; asimismo, se preparó el documento para compilación con \texttt{pdflatex} y \texttt{bibtex}. 
 
 \bibliographystyle{IEEEtran}
 \bibliography{referencias}
