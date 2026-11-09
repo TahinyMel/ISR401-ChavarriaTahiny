@@ -1,0 +1,185 @@
+\documentclass[10pt,a4paper]{extarticle}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{lmodern,microtype,csquotes}
+\usepackage[a4paper,top=1.65cm,bottom=1.65cm,left=1.7cm,right=1.7cm]{geometry}
+\usepackage{graphicx,booktabs,longtable,array,tabularx,enumitem,xcolor}
+\usepackage{caption,subcaption}
+\usepackage{titlesec,fancyhdr,lastpage}
+\usepackage[backend=biber,style=ieee,sorting=none,maxnames=3,doi=true,isbn=true,url=true]{biblatex}
+\addbibresource{referencias.bib}
+\usepackage[hidelinks,breaklinks=true]{hyperref}
+\definecolor{uteq}{HTML}{006A3A}
+\definecolor{midgreen}{HTML}{EAF4EF}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{1.2em}
+\setlength{\parskip}{3.6pt}\linespread{1.06}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\captionsetup{font=footnotesize,labelfont=bf}
+\titleformat{\section}{\bfseries\color{uteq}\normalsize}{\thesection.}{0.45em}{}
+\titlespacing{\section}{0pt}{8pt}{3pt}
+\titleformat{\subsection}{\bfseries\small}{\thesubsection.}{0.4em}{}
+\titlespacing{\subsection}{0pt}{5pt}{2pt}
+\setlist[itemize]{leftmargin=1.2em,nosep,topsep=2pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize UTEQ · ISR-401 · TA-IND-01}
+\fancyhead[R]{\footnotesize Análisis de requisitos de PayPal}
+\fancyfoot[C]{\footnotesize Página \thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{.25pt}
+\newcommand{\Req}[1]{\textbf{#1}}
+\newcommand{\fuente}[1]{\textit{#1}}
+\newcommand{\foto}[2]{%
+\IfFileExists{figuras/#1}{\includegraphics[width=\linewidth,height=2.35cm,keepaspectratio]{figuras/#1}}{%
+\fcolorbox{uteq}{midgreen}{\parbox[c][2.15cm][c]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{\centering\scriptsize Captura propia pendiente\\[-1pt]\texttt{\detokenize{#1}}}}}%
+\vspace{1pt}\par{\centering\scriptsize #2\par}}
+\begin{document}
+\begin{center}
+{\large\bfseries\color{uteq} IEEE 29148 y tipos de requisitos de un sistema conocido}\par
+{\normalsize\bfseries Caso de estudio: PayPal}\par
+\small Chavarria Cuenca Tahiny Mel · Ingeniería de Requerimientos (ISR-401) · Paralelo B\\
+Universidad Técnica Estatal de Quevedo · Docente: Gleiston Cicerón Guerrero Ulloa, PhD\\
+\textbf{Actividad:} TA-IND-01 \quad \textbf{Fecha límite:} 7 de noviembre de 2026
+\end{center}
+\vspace{-5pt}\hrule\vspace{4pt}
+
+\section{Sistema elegido: propósito, usuarios y contexto}
+PayPal es un sistema de pagos digitales utilizado para efectuar compras en línea, enviar solicitudes o pagos y consultar movimientos. Sus usuarios incluyen compradores, personas que reciben transferencias y comercios; el contexto de uso abarca aplicaciones y navegadores conectados a Internet. Para este análisis se delimita el alcance a la \textbf{experiencia web de una cuenta personal en Ecuador}: acceso, envío de dinero, revisión previa, historial y gestión de incidencias. La disponibilidad de ciertas funciones depende del país, de la cuenta y de condiciones de PayPal; por ello no se presupone que el servicio habilite idénticas operaciones para todos los usuarios \cite{paypalenvio,paypalrecibir}. Los requisitos que siguen constituyen una \textbf{propuesta académica verificable}, no una especificación contractual ni evidencia de que PayPal cumpla los objetivos cuantitativos propuestos.
+
+\section{Resumen analítico de ISO/IEC/IEEE 29148:2018}
+\subsection{Alcance de la norma y concepto de requisito}
+La cláusula 1 sitúa la ingeniería de requisitos en el ciclo de vida de sistemas, software y servicios: el foco no se reduce a redactar una lista de funciones, sino que comprende los procesos y la información necesarios para convertir necesidades en especificaciones y gestionarlas. La cláusula 3 distingue una \emph{necesidad} de un \emph{requisito}: este último expresa de manera precisa una necesidad junto con las condiciones o restricciones asociadas. Por ejemplo, «quiero pagar sin errores» es una intención; «el sistema mostrará destinatario, importe y moneda antes de confirmar el pago» permite formular una comprobación observable \cite[cláusulas 1 y 3.1.19]{iso29148}.
+
+La construcción de la cláusula 5.2.4 exige describir una capacidad, característica o condición que corresponda al nivel del sistema examinado, sin sustituirla por una instrucción de implementación. Un enunciado útil indica \emph{quién o qué} debe comportarse de determinada manera, \emph{qué resultado} se requiere y, cuando procede, \emph{bajo qué condición}. En PayPal, exigir un resultado visible en la revisión del pago es más defendible que ordenar un lenguaje de programación, una base de datos o un algoritmo interno que el observador no conoce. La revisión de requisitos se vuelve así un enlace entre la necesidad del usuario y el diseño de pruebas \cite[cláusula 5.2.4]{iso29148}. Pohl también vincula la documentación de requisitos con su validación y administración posterior \cite{pohl2025}.
+
+\textbf{El carácter normativo no significa uniformidad de redacción.} Una función visible para el usuario, una interfaz de comunicación y una restricción del proceso de desarrollo pueden necesitar condiciones y medios de aceptación distintos. Una pantalla de confirmación se comprueba por inspección y recorrido de la interfaz; la ausencia de acceso no autorizado requiere ensayos negativos, cuentas segregadas y autorización; una norma de proceso se contrasta con registros de trabajo. La precisión también depende de distinguir el \emph{sistema de interés} de su entorno. Cuando se exige que una notificación llegue al correo, la plataforma interactúa con un servicio externo cuyo comportamiento puede afectar el resultado; un ensayo debe separar la emisión del aviso y la recepción final \cite[cláusulas 5.2.4 y 5.2.8.3]{iso29148}.
+
+\subsection{Nueve características del requisito individual}
+La cláusula 5.2.5 exige revisar \textbf{nueve propiedades}, que cumplen funciones diferentes. \textbf{Necesario} significa que responde a una necesidad vigente, sin añadir funcionalidades decorativas; \textbf{apropiado}, que su detalle corresponde al nivel del sistema; y \textbf{no ambiguo}, que las personas lectoras pueden atribuirle una sola interpretación. \textbf{Completo} requiere suficiente información en el propio enunciado, mientras que \textbf{singular} evita colocar varias obligaciones independientes bajo un mismo identificador. Por eso una frase como «PayPal será rápido, seguro y sencillo» falla en varias de estas propiedades: mezcla objetivos y no aclara cómo reconocer su satisfacción \cite[cláusula 5.2.5]{iso29148}.
+
+Las cuatro propiedades restantes acercan la especificación a la decisión técnica. \textbf{Factible} pide considerar limitaciones, recursos y riesgos; \textbf{verificable} exige evidencia objetiva; \textbf{correcto} mantiene fidelidad a la necesidad original; y \textbf{conforme} respeta el estilo y la plantilla acordados. Una cifra de tiempo de respuesta mejora la verificabilidad, pero no prueba automáticamente factibilidad: su valor debe contrastarse con mediciones y condiciones de carga. A la inversa, un requisito medible puede ser incorrecto si el usuario no necesita esa conducta. Estas distinciones impiden confundir una redacción prolija con una especificación válida \cite[cláusula 5.2.5]{iso29148}.
+
+Una consecuencia práctica de esas nueve propiedades es que no admiten una evaluación exclusivamente gramatical. Un requisito puede ser singular, claro y verificable y, aun así, no representar una necesidad real. Por ejemplo, imponer que todos los movimientos se ordenen por un criterio no solicitado podría aprobar una prueba técnica, pero fallar en corrección respecto de la necesidad original. De igual forma, fijar un umbral de latencia sin definir navegador, carga o percentil no constituye una medida repetible. En el presente caso se usa la palabra \emph{deberá} para identificar la obligación y se conservan las métricas y criterios de aceptación como atributos relacionados, sin confundir su existencia documental con un resultado probado \cite[cláusula 5.2.5]{iso29148}.
+
+\subsection{Calidad del conjunto y criterios del lenguaje}
+La cláusula 5.2.6 introduce una segunda inspección: un \textbf{conjunto completo} cubre las necesidades relevantes sin dejar cuestiones esenciales sin resolver; \textbf{consistente} carece de contradicciones, solapamientos y cambios arbitrarios de terminología; \textbf{factible} puede realizarse en su totalidad con riesgos aceptables; \textbf{comprensible} permite reconocer el resultado esperado; y \textbf{validable} puede relacionarse con el propósito del sistema y las limitaciones del entorno. Es posible que quince frases correctas, tomadas por separado, formen una especificación defectuosa si dos obligan a operaciones incompatibles o dejan sin contemplar el acceso a una cuenta \cite[cláusula 5.2.6]{iso29148}.
+
+La cláusula 5.2.7 identifica expresiones que deben eliminarse o precisarse: superlativos («el mejor»), juicios subjetivos («fácil», «intuitivo»), pronombres de referente dudoso («esto»), modificadores vagos («rápidamente», «casi siempre»), conectores lógicos ambiguos («y/o»), cláusulas abiertas («entre otros»), comparativos sin referencia, escapatorias («si es posible») y absolutos difíciles de demostrar («siempre», «nunca»). Tampoco es suficiente citar «la norma vigente» sin edición o parte aplicable. En el caso estudiado, sustituir «mostrar los pagos rápidamente» por un objetivo de percentil con duración y entorno de medición evita interpretaciones incompatibles \cite[cláusula 5.2.7]{iso29148}.
+
+\textbf{Ejemplo de revisión conjunta.} RF03 pide observar tres datos antes de enviar; RH01 propone una advertencia asociada al último paso; RC04 protege la posibilidad de corregir el importe. Si la advertencia solo aparece después de confirmar, el conjunto ya no cumple su finalidad preventiva, aunque una prueba aislada de presencia de texto se aprobara. La consistencia y la validabilidad exigen leer estos requisitos en relación, examinar el orden de acciones y justificar la necesidad. Como límite del ejercicio, la cuenta personal de un estudiante no permite acceder a decisiones de diseño, condiciones internas de publicación ni métricas operacionales de la infraestructura de PayPal; esos elementos deben permanecer como hipótesis o propuestas a validar, no como resultados observados.
+
+La clasificación del lenguaje tampoco se resuelve sustituyendo cada palabra imprecisa por una cifra arbitraria. Especificar «99,9\% de disponibilidad» transforma un adjetivo en una meta cuantificada, pero la meta sigue incompleta mientras no se indique el periodo, qué se considera disponible y cómo se maneja el mantenimiento. En aplicaciones de pagos importa además distinguir un error de la interfaz de un estado financiero real. Un fallo de red posterior al clic no implica necesariamente que la operación no se haya procesado. Este tipo de escenarios explica por qué los términos, las condiciones y el criterio de aceptación deben revisarse en conjunto \cite[cláusulas 5.2.6 y 5.2.7]{iso29148}.
+
+Por último, la cláusula 5.2.8 separa el \emph{enunciado} de sus \emph{atributos}, tales como identificador, versión, tipo, prioridad, propietario, justificación y riesgo. Los tipos de la cláusula 5.2.8.3 incluyen función/desempeño, interfaz, proceso, calidad, usabilidad/calidad en uso y factores humanos. La norma ISO/IEC 25010:2023 añade una clasificación de calidad de producto en nueve características y sus subcaracterísticas: en la edición 2023 \emph{capacidad de interacción} sustituye la denominación anterior \emph{usabilidad} \cite[cláusulas 5.2.8.2 y 5.2.8.3]{iso29148}\cite{iso25010}. La separación evita confundir el tipo de un requisito con la métrica usada para comprobarlo; el enfoque de verificación y validación también se desarrolla en SWEBOK \cite{swebok2024}.
+
+En términos metodológicos, la lectura conduce a una secuencia de decisiones: identificar una necesidad, acotar el ámbito del sistema, redactar una sola obligación, asignarle tipo y atributos, revisar las nueve propiedades, comprobar la coherencia del conjunto y definir evidencias antes de declarar que se satisface. En PayPal, esta secuencia es importante porque una función puede documentarse públicamente y variar entre mercados. Por tanto, la documentación oficial sirve como fuente de candidatos a requisito, y una captura propia sirve para examinar una versión de la interfaz; ninguna de las dos demuestra por sí misma un contrato de disponibilidad o un resultado de pruebas de seguridad. Esa separación entre fuente, propuesta y comprobación es el principal criterio de calidad adoptado en el análisis.
+
+\section{Glosario de la cláusula 3}
+\begin{longtable}{@{}p{2.9cm}p{5.9cm}p{7.65cm}@{}}
+\caption{Diez términos parafraseados y aplicados al sistema PayPal.}\label{tab:glosario}\\
+\toprule\textbf{Término y cláusula}&\textbf{Definición parafraseada}&\textbf{Ejemplo propio en PayPal}\\\midrule\endfirsthead
+\toprule\textbf{Término y cláusula}&\textbf{Definición parafraseada}&\textbf{Ejemplo propio en PayPal}\\\midrule\endhead
+Restricción (3.1.7)&Límite o condición que delimita la solución posible.&La disponibilidad del envío cambia según país y tipo de cuenta.\\
+Requisito (3.1.19)&Necesidad expresada como obligación comprobable.&La revisión de un pago presenta el importe antes de enviarlo.\\
+Elicitación (3.1.20)&Obtención sistemática de necesidades de las personas involucradas.&Observar qué datos consulta alguien antes de efectuar un pago.\\
+Ingeniería de requisitos (3.1.21)&Disciplina que descubre, analiza, documenta y gestiona necesidades.&Analizar los errores de destinatario que debe evitar la interfaz.\\
+Gestión de requisitos (3.1.22)&Seguimiento de cambios y estado de requisitos durante su ciclo de vida.&Versionar RF03 cuando cambia la pantalla de revisión.\\
+Trazabilidad (3.1.23)&Relación documentada entre necesidades, requisitos y resultados.&Vincular RF04 con la consulta de movimientos y su prueba.\\
+Matriz de trazabilidad (3.1.24)&Registro estructurado de vínculos entre requisitos y sus fuentes o pruebas.&Asociar RC02 a ISO 25010, al criterio y a un caso de ensayo.\\
+Validación de requisitos (3.1.25)&Revisión para decidir si se especificó el sistema que se necesita.&Confirmar que el usuario requiere ver la moneda antes del envío.\\
+Verificación de requisitos (3.1.26)&Inspección de que los requisitos están bien formulados.&Detectar y corregir «pagos muy rápidos» por ser ambiguo.\\
+Parte interesada (3.1.28)&Persona o institución afectada o con interés legítimo en el sistema.&Comprador que necesita comprobar un cargo y comercio receptor.\\
+\bottomrule
+\end{longtable}
+\noindent\footnotesize \textit{Base terminológica:} ISO/IEC/IEEE 29148:2018, cláusula 3.1; definiciones expresadas con palabras propias \cite{iso29148}.\normalsize
+
+\section{Requisitos y tabla de clasificación}
+\textbf{Convenciones.} Los identificadores \texttt{RF}, \texttt{RI}, \texttt{RP}, \texttt{RU}, \texttt{RH} y \texttt{RC} designan, respectivamente, funcionales, interfaz, proceso, usabilidad/calidad en uso, factores humanos y calidad de producto. Los criterios son \textbf{propuestos}, no pruebas ya realizadas. Los cinco objetivos de RC requieren un entorno de medición controlado y aprobación de sus umbrales. La clasificación de calidad sigue las características y subcaracterísticas de ISO/IEC 25010:2023 \cite{iso25010}.
+\begingroup\footnotesize
+\setlength{\tabcolsep}{2.6pt}\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{@{}p{1.05cm}p{5.87cm}p{1.55cm}p{2.05cm}p{1.8cm}p{3.03cm}@{}}
+\caption{Clasificación de 15 requisitos de PayPal y criterios de aceptación propuestos.}\label{tab:req}\\
+\toprule \textbf{ID}&\textbf{Enunciado verificable}&\textbf{Tipo}&\textbf{ISO 25010:2023}&\textbf{Métrica}&\textbf{Criterio de aceptación}\\\midrule\endfirsthead
+\multicolumn{6}{c}{\footnotesize Tabla \thetable\ (continuación)}\\\toprule
+\textbf{ID}&\textbf{Enunciado verificable}&\textbf{Tipo}&\textbf{ISO 25010:2023}&\textbf{Métrica}&\textbf{Criterio de aceptación}\\\midrule\endhead
+\Req{RF01}&El sistema deberá permitir a la persona titular iniciar sesión mediante las credenciales de su cuenta válida.&Funcional&---&Acceso correcto&Cuenta de prueba válida accede; credenciales inválidas no acceden.\\
+\Req{RF02}&En la función Enviar, el sistema deberá aceptar una dirección de correo electrónico como identificador del destinatario del pago.&Funcional&---&Entrada aceptada&Una dirección válida habilita continuar; formato inválido muestra error.\\
+\Req{RF03}&Antes de ejecutar el envío, el sistema deberá mostrar al emisor destinatario, importe y divisa del pago para su revisión.&Funcional&---&Tres campos&Los tres campos son visibles antes de confirmar.\\
+\Req{RF04}&El sistema deberá presentar en Movimientos el estado de una transacción seleccionada de la cuenta autenticada.&Funcional&---&Estado visible&El detalle de una operación de prueba presenta su estado.\\
+\Req{RF05}&El sistema deberá ofrecer, desde el Centro de resoluciones, el inicio de un reporte sobre una transacción seleccionada.&Funcional&---&Ruta disponible&El usuario accede al formulario asociado a la operación seleccionada.\\
+\Req{RI01}&Tras registrarse un pago enviado, el sistema deberá comunicar la notificación al servicio externo de correo del destinatario.&Interfaz externa&---&Notificación&Correo de prueba recibe aviso correspondiente al pago controlado.\\
+\Req{RI02}&Cuando se abra un enlace válido de PayPal.Me, el sistema deberá presentar al emisor una interfaz vinculada a la cuenta destinataria de ese enlace.&Interfaz externa&---&Enlace válido&El enlace de prueba conduce al destinatario definido.\\
+\Req{RP01}&Antes de publicar una modificación de la función Enviar, el equipo responsable deberá documentar el resultado de las pruebas de destinatario, importe y divisa en el registro de versión.&Proceso&---&Registro formal&La versión evaluada incluye un informe de pruebas firmado por responsable.\\
+\Req{RU01}&En una evaluación moderada de la web de PayPal, al menos 8 de 10 usuarios nuevos deberán localizar el estado de un movimiento en 90 s o menos, sin ayuda.&Usabilidad / calidad en uso&---&Éxito en tarea&Al menos ocho participantes cumplen tiempo y autonomía.\\
+\Req{RH01}&La pantalla final de revisión deberá incluir una advertencia visible sobre la imposibilidad de cancelar directamente un pago ya enviado.&Factores humanos&---&Advertencia&El texto se visualiza antes del botón definitivo en los escenarios evaluados.\\
+\Req{RC01}&Al consultar Movimientos en navegador de escritorio, el 95\% de las cargas de la lista deberán completarse en 2,5 s o menos, bajo 50 sesiones concurrentes.&Calidad&Desempeño: comportamiento temporal&P95, segundos&En 200 consultas instrumentadas, P95 $\leq 2{,}5$ s.\\
+\Req{RC02}&Los detalles de transacciones de una cuenta deberán permanecer inaccesibles para sesiones no autenticadas o pertenecientes a otra cuenta.&Calidad&Seguridad: confidencialidad&Accesos indebidos&0 accesos exitosos en 30 intentos negativos controlados.\\
+\Req{RC03}&La consulta de Movimientos deberá mantener una disponibilidad mensual de al menos 99,9\%, excluyendo una ventana de mantenimiento anunciada previamente.&Calidad&Fiabilidad: disponibilidad&\% disponibilidad&Medición mensual de extremo a extremo $\geq 99{,}9\%$.\\
+\Req{RC04}&Durante la revisión de pago, el sistema deberá permitir regresar a la edición del importe antes de la confirmación definitiva.&Calidad&Capacidad de interacción: protección frente a errores del usuario&Casos corregidos&20 de 20 escenarios de corrección permiten modificar el importe.\\
+\Req{RC05}&El sistema deberá impedir que una retransmisión idéntica de la confirmación de pago genere un cargo duplicado.&Calidad&Seguridad: integridad&Cargos duplicados&0 duplicaciones en 20 simulaciones en ambiente de pruebas autorizado.\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Trazabilidad y evidencias propias}
+Las funciones de envío, confirmación y enlace PayPal.Me se fundamentan en la ayuda oficial de PayPal Ecuador \cite{paypalenvio}; la recepción y la dependencia del mercado se describen en \cite{paypalrecibir}. La ruta de reporte de una operación se contrasta con el Centro de resoluciones, considerando diferencias regionales \cite{paypalproblema}. \textbf{RP01, RU01 y las cinco métricas RC son propuestas académicas}: ni la documentación pública citada ni estas capturas prueban su implementación interna o cumplimiento. Para RC01--RC05 se necesitan pruebas de caja negra autorizadas; una captura de interfaz por sí sola no verifica tiempos, disponibilidad ni resistencia a duplicación.
+
+\begin{figure}[htbp]\centering
+\begin{minipage}[t]{0.32\linewidth}\foto{paypal-01-inicio.png}{E1 · Inicio o panel (RF01)}\end{minipage}\hfill
+\begin{minipage}[t]{0.32\linewidth}\foto{paypal-02-enviar.png}{E2 · Revisión de envío (RF02, RF03, RH01)}\end{minipage}\hfill
+\begin{minipage}[t]{0.32\linewidth}\foto{paypal-03-actividad.png}{E3 · Movimientos o resolución (RF04, RF05)}\end{minipage}
+\caption{Ubicación de tres capturas \emph{propias} que debe incorporar el estudiante. Si aparecen recuadros, significa que los archivos de evidencia todavía no fueron proporcionados: los recuadros no constituyen evidencia.}\label{fig:evidencias}
+\end{figure}
+La figura~\ref{fig:evidencias} identifica la evidencia de interfaz necesaria para sustentar parte de la tabla~\ref{tab:req}; la exposición de datos personales, saldos, correos, identificadores y transacciones reales debe evitarse o anonimizarse antes de publicar el repositorio.
+
+\section{Autoevaluación de los requisitos}
+Se examinaron las nueve propiedades de la cláusula 5.2.5: \textbf{N} (necesario), \textbf{A} (apropiado), \textbf{U} (unívoco), \textbf{C} (completo), \textbf{S} (singular), \textbf{F} (factible), \textbf{V} (verificable), \textbf{Co} (correcto) y \textbf{Cf} (conforme). En la tabla~\ref{tab:revision}, \textbf{R} significa revisión positiva del \emph{enunciado}; \textbf{P} significa pendiente de comprobación con partes interesadas, evidencia operativa o pruebas. Esta revisión no pretende certificar conformidad ni resultados de PayPal. La columna \emph{Leng.} controla las expresiones imprecisas listadas en 5.2.7.
+\begingroup\scriptsize
+\begin{longtable}{@{}l*{9}{c}p{5.3cm}@{}}
+\caption{Inspección individual conforme a las nueve características y al lenguaje.}\label{tab:revision}\\
+\toprule ID&N&A&U&C&S&F&V&Co&Cf&\textbf{Leng. y observación}\\\midrule\endfirsthead
+\toprule ID&N&A&U&C&S&F&V&Co&Cf&\textbf{Leng. y observación}\\\midrule\endhead
+RF01&P&R&R&R&R&P&R&P&R&Sin vaguedades; requiere cuenta de prueba.\\
+RF02&P&R&R&R&R&P&R&P&R&Reescrito; revisar disponibilidad geográfica.\\
+RF03&P&R&R&R&R&P&R&P&R&Reescrito; contraste con pantalla real.\\
+RF04&P&R&R&R&R&P&R&P&R&Estado definido; operación de prueba.\\
+RF05&P&R&R&R&R&P&R&P&R&Ruta del centro puede variar por región.\\
+RI01&P&R&R&R&R&P&R&P&R&Interacción con servicio de correo externa.\\
+RI02&P&R&R&R&R&P&R&P&R&Enlace válido; criterio delimitado.\\
+RP01&P&R&R&R&R&P&R&P&R&Proceso propuesto; no auditado a PayPal.\\
+RU01&P&R&R&R&R&P&R&P&R&Prueba con 10 personas aún no realizada.\\
+RH01&P&R&R&R&R&P&R&P&R&Reescrito; conducta normativa propuesta.\\
+RC01&P&R&R&R&R&P&R&P&R&Reescrito; umbral aún no validado.\\
+RC02&P&R&R&R&R&P&R&P&R&Prueba negativa requiere autorización.\\
+RC03&P&R&R&R&R&P&R&P&R&Ventana y disponibilidad aún no medidas.\\
+RC04&P&R&R&R&R&P&R&P&R&20 escenarios aún no ejecutados.\\
+RC05&P&R&R&R&R&P&R&P&R&Simulación exige ambiente controlado.\\
+\bottomrule
+\end{longtable}
+\endgroup
+La corrección de términos ambiguos se documenta explícitamente en la tabla~\ref{tab:correcciones}. Todas las versiones definitivas se encuentran identificadas en la tabla~\ref{tab:req}; las versiones antiguas se conservan \emph{solo} para demostrar el cambio efectuado en la redacción.
+\begingroup\footnotesize
+\begin{longtable}{@{}p{1.0cm}p{5.6cm}p{6.55cm}p{3.4cm}@{}}
+\caption{Versiones anteriores y versión corregida de requisitos observados.}\label{tab:correcciones}\\
+\toprule \textbf{ID}&\textbf{Versión anterior (defectuosa)}&\textbf{Versión corregida / definitiva}&\textbf{Defecto corregido}\\\midrule\endfirsthead
+\toprule \textbf{ID}&\textbf{Versión anterior}&\textbf{Versión corregida}&\textbf{Defecto}\\\midrule\endhead
+RF02&«PayPal deberá permitir enviar dinero fácilmente».&«En la función Enviar, el sistema deberá aceptar una dirección de correo electrónico como identificador del destinatario del pago».&Subjetividad y ausencia de comportamiento observable.\\
+RF03&«PayPal mostrará toda la información importante antes de pagar».&«Antes de ejecutar el envío, el sistema deberá mostrar al emisor destinatario, importe y divisa del pago para su revisión».&«Toda», «importante» sin delimitación.\\
+RH01&«Se mostrará un aviso claro si es posible».&«La pantalla final de revisión deberá incluir una advertencia visible sobre la imposibilidad de cancelar directamente un pago ya enviado».&Evasiva «si es posible» y cualidad vaga.\\
+RC01&«El historial cargará muy rápido».&«Al consultar Movimientos en navegador de escritorio, el 95\% de las cargas de la lista deberán completarse en 2,5 s o menos, bajo 50 sesiones concurrentes».&Adverbio impreciso; se incorpora métrica y entorno.\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Reflexión crítica y límites del análisis}
+La mayor dificultad técnica de esta propuesta se encuentra en los requisitos de \textbf{calidad}, porque la inspección de pantallas permite identificar funciones pero no conocer el desempeño o las garantías reales del sistema. Para RF03 puede revisarse visualmente si la confirmación muestra tres datos; en RC03, en cambio, hablar de disponibilidad exige un periodo de observación, puntos de medición y reglas sobre mantenimiento. Sin esos elementos, un porcentaje aparentaría exactitud sin contar con evidencia. De manera similar, el requisito RC05 exige distinguir entre la repetición visible de un clic y el resultado financiero real: una prueba sin entorno autorizado podría producir efectos económicos no deseados.
+
+También se reconoció una frontera entre \textbf{lo observado, lo publicado por PayPal y lo propuesto}. La documentación oficial respalda determinadas rutas de uso, pero no necesariamente una métrica elegida con fines académicos. La utilidad de ISO/IEC/IEEE 29148:2018 consiste precisamente en hacer visible esa diferencia: redactar no equivale a validar, y clasificar no equivale a comprobar cumplimiento. ISO/IEC 25010:2023 ayuda a elegir la propiedad que se quiere medir, mientras que el criterio de aceptación obliga a precisar una evaluación repetible. Una próxima revisión debería confrontar cada enunciado con capturas propias, requisitos regionales, responsables y pruebas. Esta reflexión es un \textbf{borrador para personalización del estudiante}: deben sustituirse las valoraciones generales por las dificultades reales experimentadas al completar la actividad.
+
+\section*{Declaración de uso de inteligencia artificial}
+Se utilizó \textbf{ChatGPT (OpenAI, GPT-6)} como apoyo para estructurar un borrador en LaTeX, reformular propuestas de requisitos, localizar fuentes públicas y comprobar aspectos de compilación. Los datos bibliográficos se cotejaron con ISO, IEEE Computer Society y Springer; las funciones del sistema se contrastaron con páginas de ayuda de PayPal. \textbf{La interpretación, selección final, capturas, experimentación, comprobación de requisitos y autoría de la entrega corresponden al estudiante.} No se han realizado experimentos ni se han obtenido capturas de su cuenta en este documento. El estudiante deberá revisar la cláusula 3 y la 5.2 en el ejemplar oficial de la asignatura y declarar cualquier intervención adicional de IA.
+
+\printbibliography[heading=bibintoc,title={Referencias (formato IEEE)}]
+\end{document}
