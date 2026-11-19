@@ -1,0 +1,218 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% babel no disponible en este entorno
+\usepackage[scaled]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[a4paper,top=2.6cm,bottom=2.3cm,left=2cm,right=2cm,headheight=34pt]{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[most]{tcolorbox}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{needspace}
+\usepackage[hypcap=false]{caption}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- Textos en español (sin babel) ----------
+\renewcommand{\tablename}{Tabla}
+
+% ---------- Interruptor de versión ----------
+\newif\ifclave
+\ifdefined\conclave
+	\clavetrue
+\fi
+
+% ---------- Paleta institucional ----------
+\definecolor{utegreen}{HTML}{0B7A3B}
+\definecolor{utegreendk}{HTML}{075C2C}
+\definecolor{midblue}{HTML}{1F5C8B}
+\definecolor{gold}{HTML}{D4A017}
+\definecolor{rowgray}{HTML}{EFEFEF}
+\definecolor{boxgray}{HTML}{F4F6F4}
+\definecolor{lightred}{HTML}{FBEAEA}
+\definecolor{lightgold}{HTML}{FBF3DC}
+\definecolor{lightblue}{HTML}{EAF1F7}
+\definecolor{lightgreen}{HTML}{DCEFE3}
+
+% ---------- Columnas ----------
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% ---------- Encabezado y pie ----------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize UTEQ \,$\cdot$\, Ingeniería de Requerimientos (ISR-401) \,$\cdot$\, SPA 2026--2027}
+\setlength{\headwidth}{\textwidth}
+\rhead{\footnotesize EV-PRAC-01 \,$\cdot$\, Paralelo B}
+\lfoot{\footnotesize Prof. Gleiston C. Guerrero-Ulloa, PhD}
+\rfoot{\footnotesize Página \thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.25}
+
+% ---------- Atajos ----------
+\newcommand{\thdr}[1]{\cellcolor{utegreen}\textcolor{white}{\textbf{#1}}}
+\newcommand{\bhdr}[1]{\cellcolor{midblue}\textcolor{white}{\textbf{#1}}}
+\newcommand{\seccion}[1]{\section{\textcolor{utegreendk}{#1}}}
+\newcommand{\subseccion}[1]{\subsection{\textcolor{midblue}{#1}}}
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
+
+\newtcolorbox{cajaclave}[1][]{colback=boxgray,colframe=utegreen,boxrule=0.8pt,arc=2mm,fonttitle=\bfseries,breakable,#1}
+\newtcolorbox{cajapiso}[1][]{colback=lightred,colframe=red!60!black,boxrule=1pt,arc=2mm,fonttitle=\bfseries,breakable,#1}
+\newtcolorbox{cajaaviso}[1][]{colback=lightgold,colframe=gold!80!black,boxrule=0.8pt,arc=2mm,fonttitle=\bfseries,breakable,#1}
+\newtcolorbox{cajacaso}[1][]{colback=lightblue,colframe=midblue,boxrule=0.8pt,arc=2mm,fonttitle=\bfseries,breakable,#1}
+\newtcolorbox{cajatarea}[1][]{colback=white,colframe=midblue,boxrule=0.7pt,arc=1.5mm,fonttitle=\bfseries,coltitle=white,colbacktitle=midblue,breakable,#1}
+
+
+\newcommand{\campo}{}
+\newcommand{\hoja}[1]{\par\noindent{\footnotesize\textcolor{gray}{(hoja #1)}}}
+
+\begin{document}
+
+\begin{center}
+	{\large Facultad de Ciencias de la Computación \,$\cdot$\, Carrera de Software}\\[8pt]
+	{\LARGE\textbf{\textcolor{utegreendk}{EV-PRAC-01}}}\\[4pt]
+	{\Large\textbf{Prueba práctica de la Unidad I --- Transcripción fiel}}\\[4pt]
+	{\large Caso «ALERTARÍO» --- Ingeniería de Requerimientos (ISR-401) --- Paralelo B}
+\end{center}
+\noindent\textcolor{gold}{\rule{\linewidth}{1.5pt}}
+
+\vspace{4pt}
+\noindent\begin{tabularx}{\linewidth}{|L{0.30\linewidth}|Y|}
+	\hline
+	\bhdr{Apellidos y nombres} & Chavarria Cuenca Tahiny Mel\campo\\ \hline
+	\bhdr{URL del repositorio} &
+\href{https://github.com/TahinyMel/ISR401-ChavarriaTahiny/tree/main/EV-PRAC-01}{GitHub --- EV-PRAC-01}\\ \hline
+	\bhdr{Fecha} & 18/11/2026 \campo\\ \hline
+\end{tabularx}
+
+\begin{cajaaviso}[title={Declaración (regla R5)}]
+Esta es la transcripción fiel de la prueba escrita a mano el 18 de noviembre de 2026; las fotografías de las hojas están en la carpeta \texttt{evidencias/} del repositorio.
+\end{cajaaviso}
+
+% ===================== T1 =====================
+\seccion{T1. Conceptos aplicados al caso}
+
+\subsection*{T1a}
+Según 29148, un requisito expresa una necesidad de un interesado y sus condiciones o restricciones, y debe ser verificable y alcanzable. Con eso:
+
+\begin{itemize}
+    \item E7 no es requisito: describe cómo se mide hoy (proceso actual), es contexto de la elicitación.
+    \item E12 no es requisito del producto: es de proceso, va en el plan del proyecto.
+\end{itemize}
+\campo
+
+\subsection*{T1b}
+\begin{itemize}
+    \item StRS: necesidades de los interesados en su contexto. Ejemplo: E1, porque expresa la necesidad del presidente barrial.
+    \item SyRS: el sistema completo (estaciones, radio, software). Ejemplo: E3, porque define la interfaz estaciones-antena.
+    \item SRS: lo que debe hacer el software. Ejemplo: E10, porque define quién emite o cancela alertas y el registro de la acción.
+\end{itemize}
+\campo
+
+\subsection*{T1c}
+\noindent\begin{tabularx}{\linewidth}{|L{0.10\linewidth}|Y|L{0.25\linewidth}|}
+	\hline
+	\thdr{Hecho} & \thdr{Actividad} & \thdr{Central / transversal}\\ \hline
+	H1 & Elicitación & Central\\ \hline
+	H2 & Análisis y negociación & Central\\ \hline
+	H3 & Especificación & Central\\ \hline
+	H4 & Validación & Central\\ \hline
+	H5 & Gestión & Transversal\\ \hline
+\end{tabularx}
+
+% ===================== T2 =====================
+\seccion{T2. Clasificación y auditoría}
+
+\subsection*{T2(a) Clasificación}
+\noindent\begin{tabularx}{\linewidth}{|L{0.07\linewidth}|L{0.20\linewidth}|L{0.17\linewidth}|Y|}
+	\hline
+	\thdr{ID} & \thdr{Tipo} & \thdr{Documento} & \thdr{Justificación}\\ \hline
+	E1 & Funcional (necesidad) & StRS & Necesidad del interesado; 'a tiempo' es vago\\ \hline
+	E2 & Dominio & StRS & Regla del protocolo cantonal\\ \hline
+	E3 & Restricción & SyRS & Interfaz fija de equipos ya comprados\\ \hline
+	E4 & Restricción de proyecto & Ninguno (plan del proyecto) & Plazo y costo no son del producto\\ \hline
+	E5 & Funcional & SRS & Genera el informe PDF\\ \hline
+	E6 & No funcional: fiabilidad & SyRS & Tolerancia a cortes de energía\\ \hline
+	E7 & No es requisito & Ninguno (registro de elicitación) & Describe el proceso actual\\ \hline
+	E8 & No funcional: eficiencia de desempeño & SRS & Tiempo de carga y concurrencia\\ \hline
+	E9 & Restricción & SRS & Plataforma impuesta (Linux)\\ \hline
+	E10 & No funcional: seguridad & SRS & Autorización y responsabilidad por usuario\\ \hline
+	E11 & No funcional: capacidad de interacción & SRS & Registro en \(\leq 3\) min en el primer intento\\ \hline
+	E12 & Requisito de proceso & Ninguno (plan del proyecto) & Es de gestión del proyecto\\ \hline
+\end{tabularx}
+
+\subsection*{T2(b) Auditoría}
+\noindent\begin{tabularx}{\linewidth}{|L{0.06\linewidth}|L{0.20\linewidth}|L{0.20\linewidth}|L{0.17\linewidth}|Y|}
+	\hline
+	\thdr{ID} & \thdr{Término o construcción problemática} & \thdr{Característica de 29148 que incumple} & \thdr{Propiedad SMART que incumple} & \thdr{Justificación}\\ \hline
+	B1 & 'veloz', 'intuitivo' & No ambiguo, verificable, singular & Specific, Measurable & \\ \hline
+	B2 & 'suficiente anticipación', 'peligroso' & No ambiguo, verificable & Specific, Measurable & \\ \hline
+	B3 & 'todos', 'en todo momento', 'sin energía ni señal', 'para siempre' & Factible, verificable & Attainable, Realisable & \\ \hline
+	B4 & Firebase en la nube & Necesario (impone diseño) & Traceable, Realisable (choca con E9) & \\ \hline
+	B5 & 'En lo posible', 'etc.', varios formatos & No ambiguo, singular, verificable & Specific, Measurable & \\ \hline
+	B6 & Ninguno & Bien formado & Cumple & Condición: lectura \(>5{,}5\) m en el puente principal. Sujeto: el sistema. Acción y objeto: enviar SMS a vecinos registrados. Restricción: \(\leq 2\) min. El 5,5 m viene de E2 y el SMS de H2.\\ \hline
+\end{tabularx}
+
+% ===================== T3 =====================
+\seccion{T3. Redacción de requisitos bien formados}
+% Agrega o quita filas para que coincidan con las de tu hoja.
+\noindent\begin{tabularx}{\linewidth}{|L{0.07\linewidth}|Y|L{0.15\linewidth}|L{0.10\linewidth}|L{0.09\linewidth}|L{0.12\linewidth}|}
+	\hline
+	\thdr{ID} & \thdr{Enunciado} & \thdr{Tipo} & \thdr{Documento} & \thdr{Fuente} & \thdr{Método de verificación}\\ \hline
+	B1a & Cuando un usuario abra el mapa de niveles, el sistema lo mostrará en \(\leq 3\) s con 500 usuarios conectados a la vez. & No func.: eficiencia de desempeño & SRS & B1, E8 & Prueba\\ \hline
+	B1b & Cuando un vecino sin uso previo se registre, el sistema le permitirá completar el registro en \(\leq 3\) min en su primer intento. & No func.: capacidad de interacción & SRS & B1, E11 & Prueba\\ \hline
+	B2 & Cuando una lectura en el puente principal supere 4,5 m, el sistema enviará un SMS de alerta naranja a los 14 presidentes barriales en \(\leq 2\) min desde la recepción de la lectura. & Funcional & SRS & B2, E2 & Prueba\\ \hline
+	B3 & Durante un corte de energía de hasta 12 h, el sistema registrará la lectura de cada una de las 6 estaciones HL-20 cada 5 min. & No func.: fiabilidad & SyRS & B3, E3, E6 & Prueba\\ \hline
+	B5 & Cuando el jefe de la Unidad solicite el informe mensual, el sistema generará en PDF los niveles del mes de cada una de las 6 estaciones. & Funcional & SRS & B5, E5 & Demostración\\ \hline
+	N1 (nuevo) & Cuando el nivel en el puente principal sea \(\leq 4{,}5\) m, el sistema permitirá a un operador autorizado cancelar la alerta vigente y registrará usuario, fecha y hora de la cancelación. & Funcional & SRS & H4, E10 & Prueba\\ \hline
+\end{tabularx}
+
+\begin{itemize}
+\item B4 se descarta por chocar con E9.
+\item Excel se elimina de B5 porque no tiene fuente (E5 solo pide PDF).
+\item N1 cubre el vacío que detectó H4: nadie había especificado cómo se cancela una alerta.
+\end{itemize}
+
+% ===================== T4 =====================
+\seccion{T4. Sustento normativo de la calidad}
+
+\subsection*{T4(a)}
+% Agrega o quita filas para que coincidan con las de tu hoja.
+\noindent\begin{tabularx}{\linewidth}{|L{0.18\linewidth}|Y|L{0.17\linewidth}|L{0.17\linewidth}|}
+	\hline
+	\thdr{Característica (29148, 5.2.5)} & \thdr{Qué exige} & \thdr{Propiedad SMART} & \thdr{Requisito que la incumple}\\ \hline
+	Necesario & Responde a una necesidad real, sin imponer solución & Ninguna & B4\\ \hline
+	Singular & Una sola capacidad por requisito & Specific & B1, B5\\ \hline
+	No ambiguo & Una sola interpretación posible & Specific & B2\\ \hline
+	Verificable & Se comprueba por inspección, análisis, demostración o prueba & Measurable & B1, B2\\ \hline
+	Factible & Alcanzable en técnica, costo y plazo & Attainable y Realisable & B3\\ \hline
+\end{tabularx}
+
+\medskip
+\textbf{Propiedad SMART sin característica equivalente:} Traceable
+
+\subsection*{T4(b)}
+Defectos del conjunto (29148, 5.2.6):
+\begin{enumerate}
+\item \textbf{Consistencia.} B4 (nube de Google) contradice E9 (servidor Linux del municipio), y B3 contradice E3 y E6 (lecturas cada 5 min, no continuas). Corrección: eliminar B4 y reescribir B3 con los valores de E3 y E6.
+\item \textbf{Completitud.} E10 habla de cancelar alertas, pero ningún requisito dice cómo (lo detectó H4). Corrección: agregar N1.
+\end{enumerate}
+
+\end{document}
